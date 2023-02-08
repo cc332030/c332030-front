@@ -12,5 +12,30 @@ on:
       - "*"
 
 jobs:
-  deploy:
-    uses: cc332030/node/.github/workflows/build.yml@master
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: cache
+        uses: actions/cache@v3
+        with:
+          key: cache
+          path: |
+            node_modules
+      - name: setup-node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: build
+        run: npm i && npm run bootstrap && npm run build
+      - id: artifact-name
+        name: artifact-name
+        run: |
+          echo "artifact-name=${{ github.event.repository.name }}.${{ github.ref_name }}.${{ github.run_id }}" >> $GITHUB_OUTPUT
+      - name: upload-artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.artifact-name.outputs.artifact-name }}
+          path: |
+            build
