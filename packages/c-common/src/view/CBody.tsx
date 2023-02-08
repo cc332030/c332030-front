@@ -9,10 +9,10 @@ import '../css/body.scss';
  * @author c332030
  * @since 2023-2-8
  */
-export function CBody(children) {
+export function CBody(props) {
   return (
     <div className={ 'body' } >
-      { children }
+      { props.children }
     </div>
   );
 }
