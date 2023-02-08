@@ -4,7 +4,8 @@ import {Button, Card, Input, Space} from 'antd';
 import HttpSchemeEnum from "enums/HttpSchemeEnum";
 import ReactUtils from "utils/ReactUtils";
 
-import 'css/body.scss';
+import {CBody} from "c-common";
+
 import './A.scss';
 
 const { TextArea } = Input;
@@ -17,7 +18,7 @@ function A() {
   const aButton = useRef(null);
 
   return (
-    <div className={ 'body' }>
+    <CBody>
       <Card bordered={false} hoverable={true}>
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
         <a ref={ aButton }
@@ -49,7 +50,7 @@ function A() {
           >{ urlTypeText(decodeValue) }下载</Button>
         </Space>
       </Card>
-    </div>
+    </CBody>
   );
 }
 

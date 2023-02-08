@@ -3,5 +3,6 @@
 .vscode
 
 build
+dist
 
 node_modules/
