@@ -1,22 +1,16 @@
 import static_files from 'rollup-plugin-static-files';
-import typescript from 'rollup-plugin-typescript2';
 
 export default {
-  input: ["src/view/index.tsx"],
+  input: ["src"],
   output: [
     {
-      dir: "dist",
-      format: "cjs",
-      exports: "named",
-      entryFileNames: "[name].js"
+      dir: "dist"
     }
   ],
   plugins: [
-    typescript(),
     static_files({
       include: ['src'],
       exclude: ['src/view']
     })
-  ],
-  external: ["react"]
+  ]
 };

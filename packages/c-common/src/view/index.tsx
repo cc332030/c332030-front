@@ -1,2 +1,0 @@
-
-export { CBody } from './CBody';

@@ -11,6 +11,6 @@ import 'css/body.scss';
  */
 export function CBody() {
   return (
-    <div className={ 'body' } />
+    <div className={ 'body' } ></div>
   );
 }
