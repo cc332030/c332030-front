@@ -2,7 +2,7 @@
   "name": "c-common",
   "version": "0.1.0",
   "type": "commonjs",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "scripts": {
     "build": "node build.js",
     "test": "jest"

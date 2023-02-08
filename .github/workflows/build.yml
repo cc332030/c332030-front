@@ -38,4 +38,4 @@ jobs:
         with:
           name: ${{ steps.artifact-name.outputs.artifact-name }}
           path: |
-            build
+            packages/*/build
