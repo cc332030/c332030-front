@@ -1,0 +1,16 @@
+{
+  "name": "c332030-front",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "start": "lerna run start --stream",
+    "graph": "nx graph"
+  },
+  "devDependencies": {
+    "lerna": "^6.4.1"
+  }
+}

@@ -1,0 +1,25 @@
+
+@import "common";
+
+body {
+
+  background-color: $background_color;
+
+  margin: 0;
+  padding: 0;
+
+}
+
+$body_padding: 1rem;
+
+.body {
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  padding: $body_padding;
+
+}
