@@ -4,8 +4,7 @@ const fs = require('fs')
 fs.rm('dist', { recursive:true }, (err) => {
 
   // 忽略文件不存在报错
-  if(err && (-4058 !== err.errno)) {
-    console.log(err)
+  if(err?.message?.indexOf('no such file or directory') < 0) {
     process.exit(-1)
   }
 
