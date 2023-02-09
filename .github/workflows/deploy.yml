@@ -20,6 +20,6 @@ jobs:
       PORT: ${{ secrets.PORT }}
     with:
       node-version: 18
-      origin-path: .
+      origin-path: packages
       remote-path: /home/program/nginx/html
       multi-module: true
