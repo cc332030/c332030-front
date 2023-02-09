@@ -11,13 +11,13 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/user-event": "^13.5.0",
-    "@types/node": "^16.18.12",
+    "@types/node": "^18.13.0",
     "@types/react-dom": "^18.0.10",
     "@types/sass": "^1.43.1",
-    "antd": "^5.1.0",
-    "react-router-dom": "^6.6.1",
+    "antd": "^5.2.0",
+    "react-router-dom": "^6.8.1",
     "react-scripts": "5.0.1",
-    "sass": "^1.57.1",
+    "sass": "^1.58.0",
     "web-vitals": "^2.1.4",
 
     "c-common": "*"
