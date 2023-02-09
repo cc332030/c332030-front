@@ -1,0 +1,25 @@
+
+name: deploy
+
+on:
+  push:
+    branches:
+      - "*"
+    tags-ignore:
+      - "*"
+  pull_request:
+    branches:
+      - "*"
+
+jobs:
+  deploy:
+    uses: cc332030/node/.github/workflows/deploy.yml@master
+    secrets:
+      SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      HOST: ${{ secrets.HOST }}
+      PORT: ${{ secrets.PORT }}
+    with:
+      node-version: 18
+      origin-path: .
+      remote-path: /home/program/nginx/html
+      multi-module: true
