@@ -9,10 +9,33 @@ class ReactUtils {
     return ref.current;
   }
 
-  public static doHtmlElement(ref: React.MutableRefObject<null>, action: (e: HTMLElement) => void) {
+  public static doHtmlElement(
+    ref: React.MutableRefObject<null>,
+    option: {
+
+      action: (e: HTMLElement) => void,
+
+      before?: (e: HTMLElement) => void,
+
+      after?: (e: HTMLElement) => void
+
+    }
+  ) {
 
     const element = this.getHtmlElement(ref);
-    element && action(element);
+
+
+    console.log('option', option)
+    if(element) {
+
+      const { action, before , after } = option;
+
+      console.log('action', action)
+
+      before && before(element);
+      action(element);
+      after && after(element);
+    }
   }
 
 }

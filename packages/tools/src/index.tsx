@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import 'antd/dist/reset.css';
 import './index.css';
 
-import A from './view/a/A';
+import DownPlus from './view/down-plus';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -13,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <A />
+    <DownPlus />
   </React.StrictMode>
 );
 

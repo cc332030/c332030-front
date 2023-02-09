@@ -6,25 +6,25 @@ import ReactUtils from "utils/ReactUtils";
 
 import {CBody} from "c-common";
 
-import './A.scss';
+import './index.scss';
 
 const { TextArea } = Input;
 
-function A() {
+function Index() {
 
   const [value, setValue] = useState('');
   const decodeValue = !value ? '' : decodeURIComponent(value.trim());
-
   const aButton = useRef(null);
 
   return (
     <CBody>
       <Card bordered={false} hoverable={true}>
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
+
         <a ref={ aButton }
           className={ 'display-none' }
-          href={ !decodeValue ? '#' : decodeValue }
-        />
+          href={ getAHref(decodeValue) }
+        >#</a>
 
         <TextArea
           className={ 'textarea' }
@@ -46,12 +46,37 @@ function A() {
 
           <Button type={ 'primary' }
             disabled={ !decodeValue }
-            onClick={ () => ReactUtils.doHtmlElement(aButton, e => e.click())}
+            onClick={ () => ReactUtils.doHtmlElement(aButton, {
+              action: e => e.click()
+            })}
           >{ urlTypeText(decodeValue) }下载</Button>
+
+          <Button type={ 'primary' }
+            disabled={ !decodeValue }
+            onClick={ () => ReactUtils.doHtmlElement(aButton, {
+              action: e => e.click(),
+              before: e => {
+                e.setAttribute('href', `/proxy?url=${decodeValue}`)
+                e.setAttribute('target', '_blank')
+              },
+              after: e => {
+                e.setAttribute('href', decodeValue)
+                e.removeAttribute('target')
+              }
+            })}
+          >加速下载</Button>
+
         </Space>
       </Card>
     </CBody>
   );
+}
+
+function getAHref(decodeValue: string): string {
+  if(!decodeValue) {
+    return '#';
+  }
+  return decodeValue;
 }
 
 function getHttpScheme(href: string): string | null {
@@ -78,4 +103,4 @@ function urlTypeText(href: string): string {
 }
 
 
-export default A;
+export default Index;
