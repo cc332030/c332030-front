@@ -41,6 +41,7 @@ function Index() {
           }}
         >
           <Button danger
+            disabled={ !href }
             onClick={ () => setHref('') }
           >清空</Button>
 
