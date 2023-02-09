@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Button, Card, Input, Space} from 'antd';
+import {Button, Card, Input, Space, Tooltip} from 'antd';
 
 import HttpSchemeEnum from "enums/HttpSchemeEnum";
 import ReactUtils from "utils/ReactUtils";
@@ -12,8 +12,8 @@ const { TextArea } = Input;
 
 function Index() {
 
-  const [value, setValue] = useState('');
-  const decodeValue = !value ? '' : decodeURIComponent(value.trim());
+  const [href, setHref] = useState('');
+  const hrefDecode = !href ? '' : decodeURIComponent(href.trim());
   const aButton = useRef(null);
 
   return (
@@ -23,14 +23,14 @@ function Index() {
 
         <a ref={ aButton }
           className={ 'display-none' }
-          href={ getAHref(decodeValue) }
+          href={ getAHref(hrefDecode) }
         >#</a>
 
         <TextArea
           className={ 'textarea' }
           placeholder='请输入链接'
-          value={ decodeValue }
-          onChange={ e => setValue(e.target.value)}
+          value={ hrefDecode }
+          onChange={ e => setHref(e.target.value)}
         />
 
         <Space wrap
@@ -41,30 +41,34 @@ function Index() {
           }}
         >
           <Button danger
-            onClick={ () => setValue('') }
+            onClick={ () => setHref('') }
           >清空</Button>
 
-          <Button type={ 'primary' }
-            disabled={ !decodeValue }
-            onClick={ () => ReactUtils.doHtmlElement(aButton, {
-              action: e => e.click()
-            })}
-          >{ urlTypeText(decodeValue) }下载</Button>
+          <Tooltip title="跳转到链接，触发浏览器的离线下载">
+            <Button type={ 'primary' }
+              disabled={ !hrefDecode }
+              onClick={ () => ReactUtils.doHtmlElement(aButton, {
+                action: e => e.click()
+              })}
+            >{urlTypeText(hrefDecode)}  跳转</Button>
+          </Tooltip>
 
-          <Button type={ 'primary' }
-            disabled={ !decodeValue }
-            onClick={ () => ReactUtils.doHtmlElement(aButton, {
-              action: e => e.click(),
-              before: e => {
-                e.setAttribute('href', `/proxy?url=${decodeValue}`)
-                e.setAttribute('target', '_blank')
-              },
-              after: e => {
-                e.setAttribute('href', decodeValue)
-                e.removeAttribute('target')
-              }
-            })}
-          >加速下载</Button>
+          <Tooltip title={ `资源加速下载，仅支持：${proxyAllowSchemeNames.join("，")}` } >
+            <Button type={ 'primary' }
+              disabled={ !proxyEnable(hrefDecode) }
+              onClick={ () => ReactUtils.doHtmlElement(aButton, {
+                action: e => e.click(),
+                before: e => {
+                  e.setAttribute('href', `/proxy?url=${hrefDecode}`)
+                  e.setAttribute('target', '_blank')
+                },
+                after: e => {
+                  e.setAttribute('href', hrefDecode)
+                  e.removeAttribute('target')
+                }
+              })}
+            >加速下载</Button>
+          </Tooltip>
 
         </Space>
       </Card>
@@ -102,5 +106,19 @@ function urlTypeText(href: string): string {
   return httpScheme + ' ';
 }
 
+const proxyAllowSchemes = [
+  HttpSchemeEnum.http, HttpSchemeEnum.https
+];
+
+const proxyAllowSchemeNames = proxyAllowSchemes.map(e => e.toString());
+
+function proxyEnable(href: string) {
+
+  const httpScheme = getHttpScheme(href);
+  if(!httpScheme) {
+    return false;
+  }
+  return proxyAllowSchemeNames.indexOf(httpScheme) >= 0;
+}
 
 export default Index;
