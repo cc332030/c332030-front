@@ -45,7 +45,7 @@ function Index() {
             onClick={ () => setHref('') }
           >清空</Button>
 
-          <Tooltip title="跳转到链接，触发浏览器的离线下载">
+          <Tooltip title="跳转触发浏览器的下载（离线）">
             <Button type={ 'primary' }
               disabled={ !hrefDecode }
               onClick={ () => ReactUtils.doHtmlElement(aButton, {
@@ -54,7 +54,7 @@ function Index() {
             >{urlTypeText(hrefDecode)}  跳转</Button>
           </Tooltip>
 
-          <Tooltip title={ `资源加速下载，仅支持：${proxyAllowSchemeNames.join("，")}` } >
+          <Tooltip title={ `仅支持 ${proxyAllowSchemeNames.join(",")} 加速` } >
             <Button type={ 'primary' }
               disabled={ !proxyEnable(hrefDecode) }
               onClick={ () => ReactUtils.doHtmlElement(aButton, {
