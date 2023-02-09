@@ -22,4 +22,5 @@ jobs:
       node-version: 18
       origin-path: packages
       remote-path: /home/program/nginx/html
+      artifact-path: packages/*/build
       multi-module: true
