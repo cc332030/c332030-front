@@ -12,13 +12,16 @@ const { TextArea } = Input;
 
 function Index() {
 
-  const [href, setHref] = useState('');
-  const hrefDecode = !href ? '' : decodeURIComponent(href.trim());
-  const aButton = useRef(null);
+  const [href, setHref] = useState('')
+  const hrefDecode = !href ? '' : decodeURIComponent(href.trim())
+  const aButton = useRef(null)
+
+  const httpScheme = getHttpScheme(href)
+  const cardTitle = `下载+${httpScheme ? `（${httpScheme}）` : ''}`
 
   return (
     <CBody>
-      <Card title={ "下载+" } bordered={false} hoverable={true}>
+      <Card title={ cardTitle } bordered={false} hoverable={true}>
         {/* eslint-disable-next-line jsx-a11y/anchor-has-content */}
 
         <a ref={ aButton }
@@ -33,7 +36,7 @@ function Index() {
           onChange={ e => setHref(e.target.value)}
         />
 
-        <Space wrap
+        <Space
           size={ 'large' }
           align={ 'center' }
           style={{
@@ -51,7 +54,7 @@ function Index() {
               onClick={ () => ReactUtils.doHtmlElement(aButton, {
                 action: e => e.click()
               })}
-            >{urlTypeText(hrefDecode)}  跳转</Button>
+            >跳转</Button>
           </Tooltip>
 
           <Tooltip title={ `仅支持 ${proxyAllowSchemeNames.join(",")} 加速` } >
@@ -96,15 +99,6 @@ function getHttpScheme(href: string): string | null {
   }
 
   return null;
-}
-
-function urlTypeText(href: string): string {
-
-  const httpScheme = getHttpScheme(href);
-  if(!httpScheme) {
-    return '';
-  }
-  return httpScheme + ' ';
 }
 
 const proxyAllowSchemes = [
