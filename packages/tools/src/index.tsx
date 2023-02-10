@@ -7,13 +7,22 @@ import './index.css';
 import DownPlus from './view/down-plus';
 
 import reportWebVitals from './reportWebVitals';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <DownPlus />,
+    errorElement: <DownPlus />,
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <DownPlus />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
